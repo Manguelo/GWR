@@ -52,7 +52,7 @@ class AboutViewController: UIViewController {
         
         // Use your own website here
         if let url = URL(string: "https://godswayradio.com/") {
-            UIApplication.shared.openURL(url)
+            UIApplication.shared.open(url)
         }
     }
 

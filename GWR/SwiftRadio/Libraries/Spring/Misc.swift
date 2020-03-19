@@ -23,23 +23,11 @@
 import UIKit
 
 public extension String {
-    public var length: Int { return self.characters.count }
+  var length: Int { return self.count }
     
-    public func toURL() -> NSURL? {
+  func toURL() -> NSURL? {
         return NSURL(string: self)
     }
-}
-
-public func htmlToAttributedString(text: String) -> NSAttributedString! {
-    let htmlData = text.data(using: String.Encoding.utf8, allowLossyConversion: false)
-    let htmlString = NSAttributedString()
-    //do {
-       // htmlString = try NSAttributedString(data: htmlData!, options: [NSAttributedString.DocumentAttributeKey.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
-    //} catch _ {
-       // htmlString = nil
-    //}
-    
-    return htmlString
 }
 
 public func degreesToRadians(degrees: CGFloat) -> CGFloat {
@@ -72,7 +60,7 @@ public extension UIColor {
         let scanner = Scanner(string: hex)
         var hexValue: CUnsignedLongLong = 0
         if scanner.scanHexInt64(&hexValue) {
-            switch (hex.characters.count) {
+            switch (hex.count) {
             case 3:
                 red   = CGFloat((hexValue & 0xF00) >> 8)       / 15.0
                 green = CGFloat((hexValue & 0x0F0) >> 4)       / 15.0

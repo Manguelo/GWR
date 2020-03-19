@@ -66,14 +66,14 @@ class StationsViewController: UIViewController {
         var error: NSError?
         var success: Bool
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playback)))
             success = true
         } catch let error1 as NSError {
             error = error1
             success = false
         }
         if !success {
-            if kDebugLog { print("Failed to set audio session category.  Error: \(error)") }
+          if kDebugLog { print("Failed to set audio session category.  Error: \(String(describing: error))") }
         }
         
         // Set audioSession as active
@@ -146,7 +146,7 @@ class StationsViewController: UIViewController {
     
     func createNowPlayingBarButton() {
         if self.navigationItem.rightBarButtonItem == nil {
-            let btn = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: self, action:#selector(self.nowPlayingBarButtonPressed))
+            let btn = UIBarButtonItem(title: "", style: UIBarButtonItem.Style.plain, target: self, action:#selector(self.nowPlayingBarButtonPressed))
             btn.image = UIImage(named: "btn-nowPlaying")
             self.navigationItem.rightBarButtonItem = btn
         }
@@ -166,7 +166,7 @@ class StationsViewController: UIViewController {
         menuShowing = true
         updateMenuIfNeeded()
             if let url = URL(string: "https://facebook.com/GodsWayRadio") {
-                UIApplication.shared.openURL(url)
+                UIApplication.shared.open(url)
             
         }
         
@@ -175,21 +175,21 @@ class StationsViewController: UIViewController {
         menuShowing = true
         updateMenuIfNeeded()
         if let url = URL(string: "https://twitter.com/godswayradio") {
-            UIApplication.shared.openURL(url)
+            UIApplication.shared.open(url)
         }
     }
     @IBAction func youtubeButton(_ sender: Any) {
         menuShowing = true
         updateMenuIfNeeded()
         if let url = URL(string: "https://www.youtube.com/channel/UCHRWISEfus-AHDcizhlIUcA") {
-            UIApplication.shared.openURL(url)
+            UIApplication.shared.open(url)
         }
     }
     @IBAction func instagramButton(_ sender: Any) {
         menuShowing = true
         updateMenuIfNeeded()
         if let url = URL(string: "https://www.instagram.com/godswayradio/") {
-            UIApplication.shared.openURL(url)
+            UIApplication.shared.open(url)
         }
     }
     
@@ -336,4 +336,9 @@ extension StationsViewController: UISearchResultsUpdating {
         //self.tableView.reloadData()
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
 }
